@@ -1,0 +1,61 @@
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#nav > li {
+  opacity: .5;
+  cursor: default;
+  background-color: transparent !important;
+}
+#nav > .enabled {
+  opacity: 1 !important;
+  cursor: pointer;
+}
+#nav > .enabled:hover {
+  background-color: #0068c4 !important;
+}
+
+
+#bookmarks {
+  -webkit-app-region: drag;
+  height: 30px;
+  background-color: #00549e;
+}
+li {
+  -webkit-app-region: no-drag;
+  float: left;
+  line-height: 30px;
+  height: 30px;
+  display: block;
+  padding: 0 10px;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  cursor: pointer;
+  user-select: none;
+}
+li:hover {
+  background-color: #0068c4;
+}
+#restore {
+  display: none;
+}
+#close:hover {
+  color: white;
+  background-color: #c40000;
+}
+
+
+li>i {
+  height: 16px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.right {
+  float: right;
+}

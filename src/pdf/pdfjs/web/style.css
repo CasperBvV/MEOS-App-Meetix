@@ -1,0 +1,76 @@
+#outerContainer .hiddenLargeView, #outerContainer .hiddenMediumView, .hiddenSmallView, .hiddenSmallView * {
+    display: none !important;
+}
+
+#outerContainer .visibleLargeView, #outerContainer .visibleMediumView, .visibleSmallView {
+    display: none;
+}
+
+#documentProperties {
+    display: none;
+}
+
+:root {
+    --toolbar-icon-opacity: 1;
+
+    --main-color: white;
+    --errorWrapper-bg-color: rgba(169, 14, 14, 1);
+    --progressBar-color: rgba(0, 96, 223, 1);
+    --progressBar-indeterminate-bg-color: rgba(40, 40, 43, 1);
+    --progressBar-indeterminate-blend-color: rgba(20, 68, 133, 1);
+    --scrollbar-color: rgba(121, 121, 123, 1);
+    --scrollbar-bg-color: rgb(0, 84, 158);
+    --toolbar-icon-bg-color: rgba(255, 255, 255, 1);
+    --toolbar-icon-hover-bg-color: rgba(255, 255, 255, 1);
+
+    --sidebar-narrow-bg-color: rgba(0, 70, 130, 0.9);
+    --sidebar-toolbar-bg-color: rgb(0, 70, 130);
+    --toolbar-bg-color: rgb(0, 84, 158);
+    --toolbar-border-color: rgba(12, 12, 13, 1);
+    --button-hover-color: rgb(0, 104, 196);
+    --toggled-btn-color: rgba(255, 255, 255, 1);
+    --toggled-btn-bg-color: rgba(0, 0, 0, 0.3);
+    --toggled-hover-active-btn-color: rgba(0, 0, 0, 0.4);
+    --dropdown-btn-bg-color: var(--sidebar-toolbar-bg-color);
+    --separator-color: rgba(0, 0, 0, 0.3);
+    --field-color: rgba(250, 250, 250, 1);
+    --field-bg-color: var(--sidebar-toolbar-bg-color);
+    --field-border-color: transparent;
+    --findbar-nextprevious-btn-bg-color: transparent
+    --treeitem-color: rgba(255, 255, 255, 0.8);
+    --treeitem-hover-color: rgba(255, 255, 255, 0.9);
+    --treeitem-selected-color: rgba(255, 255, 255, 0.9);
+    --treeitem-selected-bg-color: rgba(255, 255, 255, 0.25);
+    --sidebaritem-bg-color: var(--button-hover-color);
+    --doorhanger-bg-color: var(--scrollbar-bg-color);
+    --doorhanger-border-color: var(--scrollbar-bg-color);
+    --doorhanger-hover-color: rgba(249, 249, 250, 1);
+    --doorhanger-hover-bg-color: var(--button-hover-color);
+    --doorhanger-separator-color: var(--button-hover-color);
+    --overlay-button-bg-color: rgba(92, 92, 97, 1);
+    --overlay-button-hover-bg-color: rgba(115, 115, 115, 1);
+
+    
+}
+
+:root {
+    --body-bg-color: white;
+}
+.pdfViewer .page {
+    border-image: none;
+}
+
+
+#secondaryToolbar {
+    margin-right: 102px;
+}
+#secondaryToolbarToggle {
+    margin-right: 103px !important;
+}
+
+.toolbar {
+    -webkit-app-region: drag;
+}
+#toolbarViewer > * {
+    -webkit-app-region: no-drag;
+}
