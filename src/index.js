@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, WebContentsView } = require('electron');
-const { updateElectronApp } = require('update-electron-app');
-updateElectronApp();
+// const { updateElectronApp } = require('update-electron-app');
+// updateElectronApp();
 
 const path = require('node:path');
 
