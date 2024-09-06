@@ -4,12 +4,18 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: 'src/app-icon',
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        options: {
+          iconUrl: 'https://raw.githubusercontent.com/CasperBvV/MEOS-App-Meetix/main/src/app-icon.ico',
+          setupIcon: 'src/app-icon.ico',
+        }
+      },
     },
     {
       name: '@electron-forge/maker-zip',

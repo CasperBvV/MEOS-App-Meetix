@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, WebContentsView } = require('electron');
+if (require('electron-squirrel-startup')) app.quit();
 // const { updateElectronApp } = require('update-electron-app');
 // updateElectronApp();
 
