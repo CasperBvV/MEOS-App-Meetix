@@ -35,6 +35,13 @@ ul {
     background-color: #0068c4 !important;
 }
 
+
+#menuBar {
+    background-color: #00549e;
+    -webkit-app-region: drag;
+    height: 32px;
+}
+
 li {
     -webkit-app-region: no-drag;
     float: left;

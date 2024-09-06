@@ -24,8 +24,8 @@
     --toolbar-icon-hover-bg-color: rgba(255, 255, 255, 1);
 
     --sidebar-narrow-bg-color: rgba(0, 70, 130, 0.9);
-    --sidebar-toolbar-bg-color: rgb(0, 70, 130);
-    --toolbar-bg-color: rgb(0, 84, 158);
+    --sidebar-toolbar-bg-color: #00549e;
+    --toolbar-bg-color: rgb(0, 70, 130);
     --toolbar-border-color: rgba(12, 12, 13, 1);
     --button-hover-color: rgb(0, 104, 196);
     --toggled-btn-color: rgba(255, 255, 255, 1);

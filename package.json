@@ -1,7 +1,7 @@
 {
   "name": "meos-app-meetix",
   "productName": "meos-app-meetix",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Stand alone MEOS app for Meetix",
   "main": "src/index.js",
   "scripts": {
