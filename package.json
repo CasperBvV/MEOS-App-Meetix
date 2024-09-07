@@ -1,9 +1,10 @@
 {
   "name": "meos-app-meetix",
   "productName": "meos-app-meetix",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Stand alone MEOS app for Meetix",
   "main": "src/index.js",
+  "repository": "github:CasperBvV/meos-app-meetix",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -30,6 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "update-electron-app": "^3.0.0"
   }
 }

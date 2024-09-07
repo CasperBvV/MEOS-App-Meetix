@@ -55,7 +55,8 @@ module.exports = {
           owner: 'CasperBvV',
           name: 'MEOS-App-Meetix'
         },
-        prerelease: true
+        prerelease: false,
+        draft: true
       }
     }
   ]
