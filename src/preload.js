@@ -56,7 +56,6 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 ipcRenderer.on('update', (event, back, fwrd) => {
-    console.log(`update ${back} ${fwrd}`)
 
     const backClassList = document.getElementById('back').classList
     if (back) {
