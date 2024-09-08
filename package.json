@@ -34,7 +34,6 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
     "node-screenshots": "^0.2.1",
-    "sharp": "^0.33.5",
     "tesseract.js": "^5.1.1",
     "update-electron-app": "^3.0.0"
   }
