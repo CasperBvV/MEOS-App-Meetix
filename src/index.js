@@ -82,11 +82,15 @@ const createWindow = () => {
           console.log(text);
           if (!isnum) {
             console.log('Not a number');
-            return;
+            return false;
           }
 
           return text;
         });
+        if (!bsnString) {
+          worker.terminate();
+          return;
+        }
         meos.webContents.loadURL(`${meosPath}/basisadministratie/${bsnString}`);
 
         worker.terminate();
