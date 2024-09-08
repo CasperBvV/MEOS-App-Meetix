@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, WebContentsView } = require('electron');
+const { app, BrowserWindow, ipcMain, WebContentsView, nativeImage } = require('electron');
 if (require('electron-squirrel-startup')) app.quit();
 const { updateElectronApp } = require('update-electron-app');
 updateElectronApp();
@@ -7,7 +7,6 @@ const path = require('node:path');
 const { Window } = require("node-screenshots");
 const Tesseract = require('tesseract.js');
 const fs = require('fs');
-const sharp = require('sharp');
 
 const meosPath = 'https://meos.meetix.nl';
 
@@ -23,6 +22,7 @@ const createWindow = () => {
     height: 750,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
     },
     titleBarStyle: 'hidden',
   });
@@ -58,9 +58,8 @@ const createWindow = () => {
 
   ipcMain.on('id', () => {
     let windows = Window.all();
-    windows.forEach((item) => {
+    windows.forEach(async (item) => {
       if (item.appName == 'FiveM Game subprocess') {
-        console.log('Found window');
         let image = item.captureImageSync();
         let png = image.toPngSync();
         fs.mkdir('temp', { recursive: true }, (err) => {
@@ -69,22 +68,28 @@ const createWindow = () => {
             return;
           }
         });
-        fs.writeFileSync('temp/screenshot.png', png);
-        sharp('temp/screenshot.png').extract({ width: 412, height: 260, left: 1435, top: 236 }).toFile('temp/id.png').then(async () => {
-          sharp('temp/id.png').extract({ width: 85, height: 16, left: 298, top: 54 }).toFile('temp/bsn.png');
-          const bsn = Tesseract.recognize('temp/bsn.png').then(({ data: { text } }) => {
-            let isnum = /^\d+$/.test(text.trim());
-            console.log(text);
-            if (!isnum) {
-              console.log('Not a number');
-              return;
-            }
+        let screenshot = nativeImage.createFromBuffer(png);
+        let id = screenshot.crop({ x: 1435, y: 236, width: 412, height: 260 });
+        fs.writeFileSync('temp/id.png', id.toPNG());
 
-            meos.webContents.loadURL(`${meosPath}/basisadministratie/${text}`);
-            return text;
-          });
+        let bsn = id.crop({ x: 298, y: 54, width: 85, height: 16 });
+        fs.writeFileSync('temp/bsn.png', bsn.toPNG());
+
+        const worker = await Tesseract.createWorker();
+        
+        const bsnString = await worker.recognize('temp/bsn.png').then(({ data: { text } }) => {
+          let isnum = /^\d+$/.test(text.trim());
+          console.log(text);
+          if (!isnum) {
+            console.log('Not a number');
+            return;
+          }
+
+          return text;
         });
+        meos.webContents.loadURL(`${meosPath}/basisadministratie/${bsnString}`);
 
+        worker.terminate();
         
       
         return;

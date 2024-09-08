@@ -1,7 +1,7 @@
 {
   "name": "meos-app-meetix",
   "productName": "meos-app-meetix",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Stand alone MEOS app for Meetix",
   "main": "src/index.js",
   "repository": "github:CasperBvV/meos-app-meetix",
@@ -10,7 +10,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "env-cmd electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "fixV": "npm i --package-lock-only"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
@@ -34,7 +35,6 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
     "node-screenshots": "^0.2.1",
-    "sharp": "^0.33.5",
     "tesseract.js": "^5.1.1",
     "update-electron-app": "^3.0.0"
   }
