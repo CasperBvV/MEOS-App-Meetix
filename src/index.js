@@ -102,16 +102,25 @@ const createWindow = () => {
   })
 
   ipcMain.on('back', () => {
-    meos.webContents.navigationHistory.goBack();
+    // Check if focused window is the same as the window that sent the message
+    if (BrowserWindow.getFocusedWindow() == mainWindow) {
+      meos.webContents.navigationHistory.goBack();
+    }
+    
   })
   ipcMain.on('fwrd', () => {
-    meos.webContents.navigationHistory.goForward();
+    // Check if focused window is the same as the window that sent the message
+    if (BrowserWindow.getFocusedWindow() == mainWindow) {
+      meos.webContents.navigationHistory.goForward();
+    }
   })
 
   ipcMain.on('pageChange', () => {
-    var back = meos.webContents.navigationHistory.canGoBack()
-    var fwrd = meos.webContents.navigationHistory.canGoForward()
-    mainWindow.send('update', back, fwrd)
+    if (BrowserWindow.getFocusedWindow() == mainWindow) {
+      var back = meos.webContents.navigationHistory.canGoBack()
+      var fwrd = meos.webContents.navigationHistory.canGoForward()
+      mainWindow.send('update', back, fwrd)
+    }
   })
 
   mainWindow.on('maximize', () => {
@@ -191,5 +200,72 @@ ipcMain.on("doc", (event, page, title) => {
   win.on('unmaximize', () => {
       win.send('unmaximize')
       // win.center()
+  })
+})
+
+ipcMain.on("web", (event, page, title) => {
+  const win = new BrowserWindow({
+      width: 800,
+      height: 600,
+      webPreferences: {
+          preload: path.join(__dirname, 'web/preload.js')
+      },
+      frame: false
+  });
+  win.loadFile(path.join(__dirname, 'web/index.html'));
+
+
+  const web = new WebContentsView({
+    webPreferences: {
+      preload: path.join(__dirname, 'web/preload-web.js')
+    },
+  });
+  win.contentView.addChildView(web);
+  web.webContents.loadURL(page);
+  web.setBounds({ 
+    x: 0,
+    y: 30,
+    width: win.getBounds().width,
+    height: win.getBounds().height - 30
+  });
+
+  // Check for resize
+  win.on('resize', () => {
+    web.setBounds({ 
+      x: 0,
+      y: 30,
+      width: win.getBounds().width,
+      height: win.getBounds().height - 30
+    });
+  });
+
+  ipcMain.on('back', () => {
+    // Check if focused window is the same as the window that sent the message
+    if (BrowserWindow.getFocusedWindow() == win) {
+      web.webContents.navigationHistory.goBack();
+    }
+    
+  })
+  ipcMain.on('fwrd', () => {
+    // Check if focused window is the same as the window that sent the message
+    if (BrowserWindow.getFocusedWindow() == win) {
+      web.webContents.navigationHistory.goForward();
+    }
+  })
+
+  ipcMain.on('pageChange', () => {
+    if (BrowserWindow.getFocusedWindow() == win) {
+      var back = web.webContents.navigationHistory.canGoBack()
+      var fwrd = web.webContents.navigationHistory.canGoForward()
+      win.send('update', back, fwrd)
+    }
+  })
+
+  
+  win.on('maximize', () => {
+      win.send('maximize')
+  })
+  win.on('unmaximize', () => {
+      win.send('unmaximize')
   })
 })
