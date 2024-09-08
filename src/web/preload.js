@@ -1,33 +1,5 @@
 const { ipcRenderer } = require("electron");
 window.addEventListener('DOMContentLoaded', () => {
-    
-    // Check for opening a document
-    document.getElementById('wetboek').addEventListener('click', (event) =>{
-        ipcRenderer.send('doc', 'wetboek-strafrecht', 'Wetboek')
-    })
-    // document.getElementById('wagenpark').addEventListener('click', (event) =>{
-    //     ipcRenderer.send('doc', 'wagenpark', 'Wagenpark')
-    // })
-    document.getElementById('voertuig').addEventListener('click', (event) =>{
-        ipcRenderer.send('doc', 'richtlijnen-voertuiginbeslagname', 'Voertuig Inname')
-    })
-    document.getElementById('inname').addEventListener('click', (event) =>{
-        ipcRenderer.send('doc', 'richtlijnen-rijbewijsinname', 'Rijbewijs Inname')
-    })
-    // document.getElementById('medisch').addEventListener('click', (event) =>{
-    //     ipcRenderer.send('doc', 'medisch-stappenplan', 'Medisch Stappenplan')
-    // })
-    document.getElementById('handboek').addEventListener('click', (event) =>{
-        ipcRenderer.send('web', 'https://sites.google.com/view/veiligheidsdiensten-meetixrp', 'Handboek')
-    })
-    // document.getElementById('dreiging').addEventListener('click', (event) =>{
-    //     ipcRenderer.send('doc', 'dreigingsniveau', 'Dreigings Niveau')
-    // })
-
-
-    document.getElementById('id').addEventListener('click', (event) =>{
-        ipcRenderer.send('id')
-    })
 
     // Check for window buttons
     document.getElementById('minimize').addEventListener('click', (event) =>{
@@ -60,6 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 ipcRenderer.on('update', (event, back, fwrd) => {
+    console.log('update')
 
     const backClassList = document.getElementById('back').classList
     if (back) {
