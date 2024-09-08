@@ -25,6 +25,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // })
 
 
+    document.getElementById('id').addEventListener('click', (event) =>{
+        ipcRenderer.send('id')
+    })
+
     // Check for window buttons
     document.getElementById('minimize').addEventListener('click', (event) =>{
         ipcRenderer.send('asynchronous-message', 'action', 'min')
