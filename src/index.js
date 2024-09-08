@@ -4,6 +4,10 @@ const { updateElectronApp } = require('update-electron-app');
 updateElectronApp();
 
 const path = require('node:path');
+const { Window } = require("node-screenshots");
+const Tesseract = require('tesseract.js');
+const fs = require('fs');
+const sharp = require('sharp');
 
 const meosPath = 'https://meos.meetix.nl';
 
@@ -51,6 +55,42 @@ const createWindow = () => {
       height: mainWindow.getBounds().height - 30
     });
   });
+
+  ipcMain.on('id', () => {
+    let windows = Window.all();
+    windows.forEach((item) => {
+      if (item.appName == 'FiveM Game subprocess') {
+        console.log('Found window');
+        let image = item.captureImageSync();
+        let png = image.toPngSync();
+        fs.mkdir('temp', { recursive: true }, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        });
+        fs.writeFileSync('temp/screenshot.png', png);
+        sharp('temp/screenshot.png').extract({ width: 412, height: 260, left: 1435, top: 236 }).toFile('temp/id.png').then(async () => {
+          sharp('temp/id.png').extract({ width: 85, height: 16, left: 298, top: 54 }).toFile('temp/bsn.png');
+          const bsn = Tesseract.recognize('temp/bsn.png').then(({ data: { text } }) => {
+            let isnum = /^\d+$/.test(text.trim());
+            console.log(text);
+            if (!isnum) {
+              console.log('Not a number');
+              return;
+            }
+
+            meos.webContents.loadURL(`${meosPath}/basisadministratie/${text}`);
+            return text;
+          });
+        });
+
+        
+      
+        return;
+      }
+    });
+  })
 
   ipcMain.on('back', () => {
     meos.webContents.navigationHistory.goBack();
