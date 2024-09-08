@@ -58,9 +58,8 @@ const createWindow = () => {
 
   ipcMain.on('id', () => {
     let windows = Window.all();
-    windows.forEach((item) => {
+    windows.forEach(async (item) => {
       if (item.appName == 'FiveM Game subprocess') {
-        console.log('Found window');
         let image = item.captureImageSync();
         let png = image.toPngSync();
         fs.mkdir('temp', { recursive: true }, (err) => {
@@ -69,7 +68,6 @@ const createWindow = () => {
             return;
           }
         });
-        fs.writeFileSync('temp/screenshot.png', png);
         let screenshot = nativeImage.createFromBuffer(png);
         let id = screenshot.crop({ x: 1435, y: 236, width: 412, height: 260 });
         fs.writeFileSync('temp/id.png', id.toPNG());
@@ -77,7 +75,9 @@ const createWindow = () => {
         let bsn = id.crop({ x: 298, y: 54, width: 85, height: 16 });
         fs.writeFileSync('temp/bsn.png', bsn.toPNG());
 
-        const bsnString = Tesseract.recognize('temp/bsn.png').then(({ data: { text } }) => {
+        const worker = await Tesseract.createWorker();
+        
+        const bsnString = await worker.recognize('temp/bsn.png').then(({ data: { text } }) => {
           let isnum = /^\d+$/.test(text.trim());
           console.log(text);
           if (!isnum) {
@@ -85,10 +85,11 @@ const createWindow = () => {
             return;
           }
 
-          meos.webContents.loadURL(`${meosPath}/basisadministratie/${text}`);
           return text;
         });
+        meos.webContents.loadURL(`${meosPath}/basisadministratie/${bsnString}`);
 
+        worker.terminate();
         
       
         return;
