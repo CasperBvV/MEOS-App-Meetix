@@ -1,7 +1,7 @@
 {
   "name": "meos-app-meetix",
   "productName": "meos-app-meetix",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Stand alone MEOS app for Meetix",
   "main": "src/index.js",
   "repository": "github:CasperBvV/meos-app-meetix",
