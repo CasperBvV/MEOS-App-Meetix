@@ -69,7 +69,8 @@ const createWindow = () => {
           }
         });
         let screenshot = nativeImage.createFromBuffer(png);
-        let id = screenshot.crop({ x: 1435, y: 236, width: 412, height: 260 });
+        let width = screenshot.getSize().width;
+        let id = screenshot.crop({ x: width-485, y: 236, width: 412, height: 260 });
         fs.writeFileSync('temp/id.png', id.toPNG());
 
         let bsn = id.crop({ x: 298, y: 54, width: 85, height: 16 });
