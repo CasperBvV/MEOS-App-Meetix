@@ -60,8 +60,8 @@ const createWindow = () => {
     let windows = Window.all();
     windows.forEach(async (item) => {
       if (item.appName == 'FiveM Game subprocess') {
-        let image = item.captureImageSync();
-        let png = image.toPngSync();
+        let image = await item.captureImage();
+        let png = await image.toPng();
         fs.mkdir('temp', { recursive: true }, (err) => {
           if (err) {
             console.error(err);
