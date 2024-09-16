@@ -17,4 +17,4 @@
 - Deze app is niet gemaakt door het Meetix Development team, ik sta hier volledig los van en heb dit gemaakt uit eigen initatief.
 - Binnen deze app wordt de MEOS en verschillende documenten ingeladen vanaf https://meos.meetix.nl en https://sites.google.com, ik claim op geen enkele manier meegewerkt te hebben met het maken van deze site/documenten.
     - De dingen waar ik wel aan mee geholpen heb is allemaal te zien in de GitHub repository, hierin komt geen codering voor die gekopieerd is vanuit bovenstaande sites.
-- Op alle codering die te vinden is in de GitHub repository rust auteursrecht, voor meer informatie zie [LICENSE](LICENSE)
+- Op alle codering die te vinden is in de GitHub repository rust auteursrecht, voor meer informatie zie [LICENSE](LICENSE.md)
