@@ -131,8 +131,10 @@ const createWindow = () => {
               let text = row.split(':')[1].trim();
               if (text.includes('Model')) {
                 text = text.split('Model')[0].trim();
+                if (text == 'Onbekend') {
+                  continue;
+                }
                 plates.push(text);
-                break;
               }
             }
           }
@@ -155,6 +157,17 @@ const createWindow = () => {
   ipcMain.on('plate', () => {
     scanPlate((plate) => {
       console.log(plate);
+      if (!plate) {
+        return;
+      }
+      const options = {
+        postData: [{
+          type: 'rawData',
+          bytes: Buffer.from(`q=${plate}&search_plate`),
+        }],
+        extraHeaders: "Content-Type: application/x-www-form-urlencoded; charset=UTF-8",
+      };
+      meos.webContents.loadURL(`${meosPath}/voertuigregistratie`, options);
     });
   })
 
@@ -260,7 +273,7 @@ ipcMain.on("doc", (event, page, title) => {
   })
 })
 
-ipcMain.on("web", (event, page, title) => {
+ipcMain.on("web", (event, page, title, options) => {
   const win = new BrowserWindow({
       width: 800,
       height: 600,
@@ -278,7 +291,8 @@ ipcMain.on("web", (event, page, title) => {
     },
   });
   win.contentView.addChildView(web);
-  web.webContents.loadURL(page);
+  const loadoptions = options || {};
+  web.webContents.loadURL(page, loadoptions);
   web.setBounds({ 
     x: 0,
     y: 30,
