@@ -28,6 +28,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('id').addEventListener('click', (event) =>{
         ipcRenderer.send('id')
     })
+    document.getElementById('plate').addEventListener('click', (event) =>{
+        ipcRenderer.send('plate')
+    })
 
     // Check for window buttons
     document.getElementById('minimize').addEventListener('click', (event) =>{

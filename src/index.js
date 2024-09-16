@@ -102,6 +102,62 @@ const createWindow = () => {
     });
   })
 
+  function scanPlate(cb) {
+    let windows = Window.all();
+    windows.forEach(async (item) => {
+      if (item.appName == 'FiveM Game subprocess') {
+        let image = await item.captureImage();
+        let png = await image.toPng();
+        fs.mkdir('temp', { recursive: true }, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        });
+        let screenshot = nativeImage.createFromBuffer(png);
+        let width = screenshot.getSize().width;
+        let height = screenshot.getSize().height;
+        let plate = screenshot.crop({ x: width-129-500, y: height-124, width: 500, height: 124 });
+        fs.writeFileSync('temp/plate.png', plate.toPNG());
+
+        const worker = await Tesseract.createWorker();
+        
+        const plateString = await worker.recognize('temp/plate.png').then(({ data: { text } }) => {
+          let plates = [];
+          let split = text.split('\n');
+          for (let i = 0; i < split.length; i++) {
+            let row = split[i];
+            if (row.includes('Kenteken')) {
+              let text = row.split(':')[1].trim();
+              if (text.includes('Model')) {
+                text = text.split('Model')[0].trim();
+                plates.push(text);
+                break;
+              }
+            }
+          }
+          return plates[0];
+        });
+        if (!plateString) {
+          worker.terminate();
+          return;
+        }
+
+        worker.terminate();
+        
+        cb(plateString);
+      
+        return;
+      }
+    });
+  }
+  
+  ipcMain.on('plate', () => {
+    scanPlate((plate) => {
+      console.log(plate);
+    });
+  })
+
   ipcMain.on('back', () => {
     // Check if focused window is the same as the window that sent the message
     if (BrowserWindow.getFocusedWindow() == mainWindow) {
