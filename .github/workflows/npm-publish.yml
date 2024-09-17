@@ -3,7 +3,12 @@
 
 name: Publish to GitHub Releases
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - docs
 
 jobs:
 
