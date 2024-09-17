@@ -10,6 +10,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "env-cmd electron-forge publish",
+    "publish-github": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
     "fixV": "npm i --package-lock-only"
   },
