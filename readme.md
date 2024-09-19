@@ -1,3 +1,5 @@
+Met deze app kan je de [MEOS](https://meos.meetix.nl) op een makkelijke manier gebruiken als een desktop app. Ook zitter er een paar nieuwe features in die niet op de website te vinden zijn zoals een automatische ID-Scan en bookmarks voor belangrijke documenten.
+
 # Hulp & Vragen
 - Voor vragen of hulp, neem contact op met Casper B. (26-117) of maak [hier](https://github.com/CasperBvV/MEOS-App-Meetix/issues/new/choose) een issue aan
 
